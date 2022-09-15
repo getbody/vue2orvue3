@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div class="demo" :x='n'>
+        <h2>当前n值是：{{n}}</h2>
+        <button @click='add'>点我n+1</button>
+        <button @click='bye'>点我销毁Vm</button>
+    </div>
+    <script>
+        Vue.config.productionTip = false // 阻止 vue 在启动时生成生产提示
+
+        new Vue({
+            el: '.demo',
+            data: {
+                n: 1
+            },
+            methods: {
+                add() {
+                    this.n++
+                },
+                bye(){
+                    console.log('@@@---destroy');
+                    this.$destroy();
+                }
+            },
+            beforeCreate() {
+                console.log('beforeCreate')
+            },
+            created() {
+                console.log('created')
+            },
+            beforeMount() {
+                console.log('beforeMount')
+            },
+            mounted() {
+                console.log('beforeMount')
+            },
+            beforeUpdate() {
+                console.log('beforeUpdate')
+            },
+            updated() {
+                console.log('updated')
+            },
+            beforeDestroy() {
+                console.log('beforeDestroy')
+            },
+            destroyed() {
+                console.log('destroyed')
+            },
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div class="demo">
+        <h2>人员列表</h2>
+        <input type="text" placeholder="请输入名称" v-model='keyWord'>
+        <button @click='sortType = 2'>年龄升序</button>
+        <button @click='sortType = 1'>年龄降序</button>
+        <button @click='sortType = 0'>原顺序</button>
+        <ul>
+            <li v-for='item in filter' :key="item.id">{{ item.name }}-{{ item.age }}-{{item.sex}}</li>
+        </ul>
+    </div>
+    <script>
+        Vue.config.productionTip = false // 阻止 vue 在启动时生成生产提示
+        new Vue({
+            el: '.demo',
+            data: {
+                persons: [{
+                    id: 1,
+                    name: "马冬梅",
+                    age: 31,
+                    sex: '女'
+                }, {
+                    id: 2,
+                    name: "周冬雨",
+                    age: 19,
+                    sex: '女'
+                }, {
+                    id: 3,
+                    name: "周杰伦",
+                    age: 27,
+                    sex: '男'
+                }, {
+                    id: 4,
+                    name: "文昭伦",
+                    age: 43,
+                    sex: '男'
+                }],
+                keyWord: '',
+                sortType: 0, // 0原顺序  1.降序 2.升序
+            },
+            computed: {
+                filter() {
+                    console.log(this.sortType);
+                    
+                    const arr = this.persons.filter((p) => {
+                        return p.name.indexOf(this.keyWord) !== -1
+                    })
+
+                    // 判断一下是否需要排序
+                    console.log(this.sortType);
+                    if(this.sortType){
+                        arr.sort((a,b) => {
+                            return this.sortType === 1 ? b.age - a.age : a.age - b.age
+                        })
+                    }
+                    console.log(arr);
+                    return arr
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
